@@ -1,0 +1,46 @@
+<form autocomplete="off" class="form form-horizontal" #form="ngForm" novalidate>
+  <div class="form-body">
+    <app-modal-simples [titulo]="'Cadastro de Usuários'" [form]="form" [item]="usuario">
+      <div class="row">
+        <div class="col-md-12">
+          <label for="inputNome" class="control-label">Nome</label>
+          <input type="text" [(ngModel)]="usuario.nome" name="inputNome" class="form-control" id="inputNome"
+            maxlength="200" minlength="3" #nome="ngModel" placeholder="Informe" [disabled]="desabilita" required>
+          <small class="form-text text-muted danger"
+            *ngIf="nome.errors?.required && (nome.dirty || nome.touched)">Informe
+            o nome
+          </small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <label for="inputPerfil" class="control-label">Perfil</label>
+
+          <select class="form-control" [(ngModel)]="usuario.perfil" id="inputPerfil" name="inputPerfil"
+            #perfil="ngModel">
+            <option value="">Selecione</option>
+            <option value="Almoxarifado">Almoxarifado</option>
+            <option value="Professor">Professor</option>
+            <option value="Diretor">Diretor</option>
+          </select>
+
+          <small class="form-text text-muted danger"
+            *ngIf="perfil.errors?.required && (perfil.dirty || perfil.touched)">Informe
+            a quantidade
+          </small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <label for="inputSenha" class="control-label">Senha</label>
+          <input type="password" [(ngModel)]="usuario.senha" name="inputSenha" class="form-control" id="inputSenha"
+            maxlength="60" minlength="3" #senha="ngModel" placeholder="Informe" [disabled]="desabilita" required>
+          <small class="form-text text-muted danger"
+            *ngIf="senha.errors?.required && (senha.dirty || senha.touched)">Informe
+            a senha
+          </small>
+        </div>
+      </div>
+    </app-modal-simples>
+  </div>
+</form>

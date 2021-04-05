@@ -1,0 +1,28 @@
+<form autocomplete="off" class="form form-horizontal" #form="ngForm" novalidate>
+  <div class="form-body">
+    <app-modal-simples [titulo]="'Cadastro de Equipamentos'" [form]="form" [item]="equipamento">
+      <div class="row">
+        <div class="col-md-8">
+          <label for="inputNome" class="control-label">Nome</label>
+          <input type="text" [(ngModel)]="equipamento.nome" name="inputNome" class="form-control" id="inputNome"
+            maxlength="60" minlength="3" #nome="ngModel" placeholder="Informe" [disabled]="desabilita" required>
+          <small class="form-text text-muted danger"
+            *ngIf="nome.errors?.required && (nome.dirty || nome.touched)">Informe
+            o nome
+          </small>
+        </div>
+     
+        <div class="col-md-4">
+          <label for="inputQuantidade" class="control-label">Quantidade</label>
+          <input type="number" [(ngModel)]="equipamento.quantidade" name="inputQuantidade" class="form-control"
+            id="inputQuantidade" maxlength="60" minlength="3" #quantidade="ngModel" placeholder="Informe"
+            [disabled]="desabilita" required>
+          <small class="form-text text-muted danger"
+            *ngIf="quantidade.errors?.required && (quantidade.dirty || quantidade.touched)">Informe
+            a quantidade
+          </small>
+        </div>
+      </div>
+    </app-modal-simples>
+  </div>
+</form>

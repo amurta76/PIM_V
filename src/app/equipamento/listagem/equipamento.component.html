@@ -1,0 +1,38 @@
+<form autocomplete="off" class="form form-horizontal" #form="ngForm" novalidate>
+  <div class="form-body">
+    <app-modal-simples [titulo]="'Cadastro de Equipamentos'" [form]="form" [podeFechar]="false">
+      <div class="col-md-4 btn btn-primary" (click)="incluir()">Novo Equipamento</div>
+      <div class="row text-center">
+        <table sortable-table class="table table-hover table-sm">
+          <thead class="thead-custom" style=" padding:10px 0px;">
+            <tr>
+              <th>Ação
+              </th>
+              <th><a sortable-column="nome">Nome</a>
+              </th>
+              <th><a sortable-column="quantidade">Quantidade</a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let equipamento of equipamentos; let i = index">
+              <td style="padding: 0">
+                <a placement="top" ngbTooltip="Editar" (click)="detalhar(equipamento, i)">
+                  <i class="far fa-edit"></i>
+                </a>
+              </td>
+              <td>{{equipamento.nome}}
+              </td>
+              <td>{{equipamento.quantidade}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div botoes>
+        <button type="button" class="btn btn-raised btn-secondary" (click)="fechar()"> Fechar
+        </button>
+      </div>
+    </app-modal-simples>
+  </div>
+</form>
