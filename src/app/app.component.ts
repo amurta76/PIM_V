@@ -2,7 +2,8 @@ import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit } fr
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours, } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, } from 'angular-calendar';
+import { CalendarDateFormatter, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView} from 'angular-calendar';
+import { CustomDateFormatter } from './custom-date-formatter.provider';
 import { EquipamentoComponent } from "./equipamento/listagem/equipamento.component";
 import { UsuarioComponent } from "./usuario/listagem/usuario.component";
 
@@ -25,7 +26,12 @@ const colors: any = {
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [
+    {
+      provide: CalendarDateFormatter,
+      useClass: CustomDateFormatter,
+    }]
 })
 export class AppComponent implements OnInit {
 
@@ -43,17 +49,23 @@ export class AppComponent implements OnInit {
   usuarioModalForm = UsuarioComponent;
   listaUsuarios = [];
 
+  calendarConfigProvider: any;
+
   ngOnInit() {
-    this.listaEquipamentos.push({ id: 1, nome: "Datashow", quantidade: 2 },
-      { id: 2, nome: "Tv com VCR", quantidade: 3 },
-      { id: 3, nome: "Tv com DVD", quantidade: 5 });
+    this.listaEquipamentos.push({ id: 1, nome: "Datashow", quantidade: 2, cor: colors.red },
+      { id: 2, nome: "Tv com VCR", quantidade: 3, cor: colors.blue },
+      { id: 3, nome: "Tv com DVD", quantidade: 5, cor: colors.green });
 
     this.listaUsuarios.push({ id: 1, nome: "Almoxarifado", perfil: "Almoxarifado", senha: "123" },
       { id: 2, nome: "Professor", perfil: "Professor", senha: "123" },
       { id: 3, nome: "Diretor", perfil: "Diretor", senha: "123" });
+
+     this.calendarConfigProvider.setDateFormats({
+        time: 'hh:mm a', //this will configure the hour view to display in 24 hour format rather than the default of 12 hour
+      });
   }
 
-
+ 
   modalData: {
     action: string;
     event: CalendarEvent;
